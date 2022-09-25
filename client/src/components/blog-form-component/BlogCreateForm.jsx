@@ -75,7 +75,7 @@ function BlogCreateForm() {
                                 config={
                                     {
                                         ckfinder:{
-                                            uploadUrl: `${process.env.REACT_APP_UPLOAD_URL}/uploads`
+                                            uploadUrl: `${process.env.REACT_APP_UPLOAD_URL}/post/uploads`
                                         }
                                     }
                                 }

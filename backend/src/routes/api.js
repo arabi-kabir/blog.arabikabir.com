@@ -6,3 +6,5 @@ const api = express.Router()
 
 // routers
 api.use('/post', postRouter)
+
+module.exports = api

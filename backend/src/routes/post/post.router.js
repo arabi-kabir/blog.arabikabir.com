@@ -6,13 +6,13 @@ const {
     insertPost
 } = require('./post.controller')
 
-const expenseRouter = express.Router()
+const postRouter = express.Router()
 
 const multipartyMiddleware = multiparty({
     uploadDir: './images'
 })
 
-expenseRouter.post('../uploads', multipartyMiddleware, (req, res) => {
+postRouter.post('/uploads', multipartyMiddleware, (req, res) => {
     let tempFile = req.files.upload;
     let temPathFile = tempFile.path
 
@@ -21,10 +21,6 @@ expenseRouter.post('../uploads', multipartyMiddleware, (req, res) => {
     if(path.extname(tempFile.originalFilename).toLowerCase() === "png" || ".jpg" || ".jpeg") {
         fs.rename(temPathFile, targetPathUrl, err => {
             const basename = path.basename(targetPathUrl)
-
-            if(!basename) {
-                return console.log('file not found');
-            }
 
             if(err) {
                 return console.log(err);
@@ -38,4 +34,6 @@ expenseRouter.post('../uploads', multipartyMiddleware, (req, res) => {
     }
 })
 
-expenseRouter.post('/', insertPost)
+postRouter.post('/', insertPost)
+
+module.exports = postRouter
