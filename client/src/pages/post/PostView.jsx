@@ -10,7 +10,7 @@ function PostView() {
     }, [])
 
     const getPost = async (post_id2) => {
-        let post_id = '63318f63f804064dad07a47a'
+        let post_id = '633195f7f804064dad07a48d'
         const url = `${process.env.REACT_APP_UPLOAD_URL}/post/${post_id}`
 
         axios.get(url)
@@ -34,7 +34,9 @@ function PostView() {
         <Fragment>
             <div style={{ padding: '40px' }}>
                 <h4>Post view</h4>
-                <div dangerouslySetInnerHTML={{ __html: post.post_body }}></div>
+                <div className='ck-content'>
+                    <div dangerouslySetInnerHTML={{ __html: post.post_body }}></div>
+                </div>
             </div>
         </Fragment>
    

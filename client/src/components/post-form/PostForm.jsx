@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import { CKEditor } from '@ckeditor/ckeditor5-react'
 
+// import CodeBlock from '@ckeditor/ckeditor5-code-block'
+
 import axios from 'axios'
 
 function PostForm() {
@@ -76,7 +78,8 @@ function PostForm() {
                                     {
                                         ckfinder:{
                                             uploadUrl: `${process.env.REACT_APP_UPLOAD_URL}/post/uploads`
-                                        }
+                                        },
+                                        // plugins: [ CodeBlock ]
                                     }
                                 }
                             />
