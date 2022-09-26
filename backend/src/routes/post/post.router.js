@@ -3,7 +3,8 @@ const multiparty = require('connect-multiparty')
 const fs = require('fs')
 const path = require('path')
 const {
-    insertPost
+    insertPost,
+    gettPost
 } = require('./post.controller')
 
 const postRouter = express.Router()
@@ -34,6 +35,7 @@ postRouter.post('/uploads', multipartyMiddleware, (req, res) => {
     }
 })
 
-postRouter.post('/', insertPost)
+postRouter.post('/save-blog-data', insertPost)
+postRouter.get ('/:id', gettPost)
 
 module.exports = postRouter

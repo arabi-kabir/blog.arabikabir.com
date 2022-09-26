@@ -4,7 +4,7 @@ import { CKEditor } from '@ckeditor/ckeditor5-react'
 
 import axios from 'axios'
 
-function BlogCreateForm() {
+function PostForm() {
     const [blogData, setBlogdata] = useState({
         title: '',
         author: '',
@@ -31,7 +31,7 @@ function BlogCreateForm() {
     const submitBlog = async (e) => {
         e.preventDefault()
 
-        const url = `${process.env.REACT_APP_UPLOAD_URL}/save-blog-data`
+        const url = `${process.env.REACT_APP_UPLOAD_URL}/post/save-blog-data`
 
         console.log(url);
 
@@ -94,4 +94,4 @@ function BlogCreateForm() {
     )
 }
 
-export default BlogCreateForm
+export default PostForm

@@ -1,15 +1,17 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import BlogCreateForm from "./components/blog-form-component/BlogCreateForm";
 import Login from "./components/auth/Login";
+import PostCreate from "./pages/post/PostCreate";
+import PostView from "./pages/post/PostView";
 
 function App() {
 	return (
 		<Router>
 			<Routes>
 				<Route path="/" element={<Login />} />
-				<Route path="/blog-create" element={<BlogCreateForm />} />
+				<Route path="/post-create" element={<PostCreate />} />
+				<Route path="/post/:id" element={<PostView />} />
 			</Routes>
 		</Router>
 	);
