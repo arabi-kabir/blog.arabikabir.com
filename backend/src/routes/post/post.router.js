@@ -35,7 +35,7 @@ postRouter.post('/uploads', multipartyMiddleware, (req, res) => {
     }
 })
 
-postRouter.post('/save-blog-data', insertPost)
+postRouter.post('/save-post-data', insertPost)
 postRouter.get ('/:id', gettPost)
 
 module.exports = postRouter

@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import { CKEditor } from '@ckeditor/ckeditor5-react'
-
-// import CodeBlock from '@ckeditor/ckeditor5-code-block'
-
 import axios from 'axios'
+import Layout from '../layouts/Layout'
+import Input from 'antd/lib/input/Input'
+import { Button } from 'antd'
+import toast from 'react-hot-toast';
 
 function PostForm() {
     const [blogData, setBlogdata] = useState({
@@ -22,7 +23,6 @@ function PostForm() {
 
     const handleCkeditorState = (event, editor) => {
         const data = editor.getData()
-        // console.log(data);
 
         setBlogdata({
             ...blogData,
@@ -33,15 +33,21 @@ function PostForm() {
     const submitBlog = async (e) => {
         e.preventDefault()
 
-        const url = `${process.env.REACT_APP_UPLOAD_URL}/post/save-blog-data`
+        document.getElementById('myCkEditor').setData('')
 
-        console.log(url);
+        const url = `${process.env.REACT_APP_UPLOAD_URL}/post/save-post-data`
 
         axios.post(url, {
             blogData: blogData
         })
         .then(function (response) {
-            console.log(response);
+            toast.success('Post saved successfully')
+
+            setBlogdata({
+                title: '',
+                author: '',
+                content: ''
+            })
         })
         .catch(function (error) {
             console.log(error);
@@ -49,51 +55,59 @@ function PostForm() {
     }
 
     return (
-        <div className='app'>
-            <div className="container">
-                <h2 className='mt-3'>Create Blog</h2>
+        <Fragment>
+            <Layout>
+                <div className='app'>
+                    <div className="container">
+                        <h3 className='mt-3'>Create Post</h3>
 
-				<div className="wrapper">
-					<form className="form-group mt-4">
-						<div className="form-group mb-3">
-							<label className="mb-2">Title</label>
-							<input type="text" name="title" placeholder="Enter Title" className="form-control" value={blogData.title} onChange={hanldeChangeData} />
-						</div>
+                        <div className="wrapper">
+                            <form className="form-group mt-4">
+                                <div className="form-group mb-3">
+                                    <label className="mb-2">Title</label>
+                                    <Input placeholder='Post Title' name='title' value={blogData.title} onChange={hanldeChangeData} />
+                                </div>
 
-						<div className="form-group mb-3">
-							<label className="mb-2">Author</label>
-							<input type="text" name="author" placeholder="Enter Author Name" className="form-control" value={blogData.author} onChange={hanldeChangeData} />
-						</div>
+                                <div className="form-group mb-3">
+                                    <label className="mb-2">Author</label>
+                                    <Input placeholder='Author Name' name='author' value={blogData.author} onChange={hanldeChangeData}  />
+                                </div>
 
-						<div className="form-group mb-3">
-							<label className="mb-2">Content</label>
+                                <div className="form-group mb-3">
+                                    <label className="mb-2">Content</label>
 
-                            <CKEditor
-                                editor={ClassicEditor}
-                                onReady={editor => {
+                                    <CKEditor
+                                        id="myCkEditor"
+                                        editor={ClassicEditor}
+                                        onReady={editor => {
 
-                                }}
-                                onChange={handleCkeditorState}
-                                config={
-                                    {
-                                        ckfinder:{
-                                            uploadUrl: `${process.env.REACT_APP_UPLOAD_URL}/post/uploads`
-                                        },
-                                        // plugins: [ CodeBlock ]
-                                    }
-                                }
-                            />
-						</div>
+                                        }}
+                                        onChange={handleCkeditorState}
+                                        config={
+                                            {
+                                                ckfinder:{
+                                                    uploadUrl: `${process.env.REACT_APP_UPLOAD_URL}/post/uploads`
+                                                }
+                                            }
+                                        }
+                                    />
+                                </div>
 
-						<div className="form-group">
-							<button type='button' onClick={submitBlog} className="btn btn-primary">
-                                SUBMIT
-                            </button>
-						</div>
-					</form>
-				</div>
-			</div>	
-        </div>
+                                <div className="form-group">
+                                    <Button 
+                                        onClick={submitBlog} 
+                                        block 
+                                        style={{ backgroundColor: '#27ae60', color: 'white' }}
+                                    >
+                                        SUBMIT POST
+                                    </Button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>	
+                </div>
+            </Layout>
+        </Fragment>
     )
 }
 
