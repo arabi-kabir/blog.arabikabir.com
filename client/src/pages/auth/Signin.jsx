@@ -7,13 +7,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthService from '../../services/auth/auth.service'
 import toast from 'react-hot-toast';
-import RestClient from '../../rest-client/RestClient';
 
 function Signin() {
-	const onFinish = (values) => {
-		console.log('Received values of form: ', values);
-	};
-
 	const [formData, setformData] = useState({
         email: '',
         password: ''
@@ -37,7 +32,7 @@ function Signin() {
             const res = await AuthService.signin(email, password)
 
             if(res.status == 200) {
-                navigate('/post-create')
+                navigate('/my-posts')
 
                 toast.success('Logged in successfully')
             } else {

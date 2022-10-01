@@ -11,7 +11,7 @@ const Layout =({children}) =>{
                     {children}
                 </main>
                 <Footer 
-                    style={{ textAlign: 'center', position: 'fixed', bottom: '0', width:'100%' }}
+                    style={{ textAlign: 'center', bottom: '0', width:'100%', backgroundColor: '#34495e', color: 'white' }}
                 >
                     blog.arabikabir.com ©{ new Date().getFullYear() } created with &hearts; by arabi
                 </Footer>

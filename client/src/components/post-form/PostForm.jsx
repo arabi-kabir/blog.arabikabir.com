@@ -6,6 +6,11 @@ import Layout from '../layouts/Layout'
 import Input from 'antd/lib/input/Input'
 import { Button } from 'antd'
 import toast from 'react-hot-toast';
+import { useRef } from 'react'
+import { useEffect } from 'react'
+import RestClient from '../../rest-client/RestClient'
+import PostValidate from '../../services/validation/post.validator'
+import { useNavigate } from 'react-router-dom'
 
 function PostForm() {
     const [blogData, setBlogdata] = useState({
@@ -13,6 +18,9 @@ function PostForm() {
         author: '',
         content: ''
     })
+
+    const ckEditorEl = useRef(null)
+    const navigate = useNavigate()
  
     const hanldeChangeData = (e) => {
         setBlogdata({
@@ -33,25 +41,54 @@ function PostForm() {
     const submitBlog = async (e) => {
         e.preventDefault()
 
-        document.getElementById('myCkEditor').setData('')
+        const errors = PostValidate.validate(blogData)
+
+        // console.log(ckEditorEl.current.editor.getData());
 
         const url = `${process.env.REACT_APP_UPLOAD_URL}/post/save-post-data`
 
-        axios.post(url, {
-            blogData: blogData
-        })
-        .then(function (response) {
-            toast.success('Post saved successfully')
-
-            setBlogdata({
-                title: '',
-                author: '',
-                content: ''
+        if(errors.length == 0) {
+            try {
+                return await RestClient.postRequest(url, {
+                    blogData: blogData
+                })
+                .then(result => {
+                    setBlogdata({
+                        title: '',
+                        author: '',
+                        content: ''
+                    })
+        
+                    if(result.status == 201) {
+                        toast.success('Post saved successfully')
+        
+                        setBlogdata({
+                            title: '',
+                            author: '',
+                            content: ''
+                        })
+            
+                        // Clear CKEditor content
+                        ckEditorEl.current.editor.setData('')
+    
+                        navigate('/my-posts')
+                    } else {
+                        toast.error('Opps! Something is wrong')
+                    }
+                })
+                .catch(function (error) {
+                    toast.error('Opps! Something is wrong with server [insert]')
+                    console.log(error);
+                });
+            } catch (error) {
+                toast.error('Opps! Something is wrong with server')
+                console.log(error);
+            }
+        } else {
+            errors.forEach(error => {
+                toast.error(error.message)
             })
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+        }
     }
 
     return (
@@ -61,7 +98,7 @@ function PostForm() {
                     <div className="container">
                         <h3 className='mt-3'>Create Post</h3>
 
-                        <div className="wrapper">
+                        <div className="wrapper" style={{ marginBottom: '80px' }}>
                             <form className="form-group mt-4">
                                 <div className="form-group mb-3">
                                     <label className="mb-2">Title</label>
@@ -77,10 +114,11 @@ function PostForm() {
                                     <label className="mb-2">Content</label>
 
                                     <CKEditor
+                                        ref={ckEditorEl}
                                         id="myCkEditor"
                                         editor={ClassicEditor}
                                         onReady={editor => {
-
+                                            // editor.ui.view.editable.element.style.height = '300px';
                                         }}
                                         onChange={handleCkeditorState}
                                         config={

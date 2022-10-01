@@ -13,7 +13,11 @@ const postSchema = new mongoose.Schema({
     post_body: {
         type: String,
         required: false
-    }
+    },
+    post_owner_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
 }, {
     timestamps: true
 })

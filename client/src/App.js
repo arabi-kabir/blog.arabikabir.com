@@ -7,6 +7,9 @@ import PostView from "./pages/post/PostView";
 import Signin from "./pages/auth/Signin";
 import BlogIndex from "./pages/blog/BlogIndex";
 import './App.css'
+import ProtectedRoutes from './components/utils/ProtectedRoutes';
+import Logout from "./components/utils/Logout";
+import MyPost from "./pages/post/MyPost";
 
 function App() {
 	return (
@@ -15,8 +18,14 @@ function App() {
 				<Routes>
 					<Route path="/" element={<BlogIndex />} />
 					<Route path="/sign-in" element={<Signin />} />
-					<Route path="/post-create" element={<PostCreate />} />
-					<Route path="/post/:id" element={<PostView />} />
+					<Route path="/sign-out" element={<Logout />} />
+
+					<Route element={<ProtectedRoutes/>}>
+						<Route path="/my-posts" element={<MyPost />} />
+						<Route path="/post-create" element={<PostCreate />} />
+						<Route path="/post/:id" element={<PostView />} />
+					</Route>
+
 
 					{/* <Route path="/" /> */}
 				</Routes>

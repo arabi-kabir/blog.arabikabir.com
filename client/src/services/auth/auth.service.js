@@ -1,6 +1,7 @@
 import RestClient from '../../rest-client/RestClient';
 import AppUrl from '../../rest-client/AppUrl';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const signin = (email, password) => {
     try {
@@ -20,6 +21,8 @@ const signin = (email, password) => {
 const logout = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
+
+    toast.success('Logged out successfully')
 }
 
 const getCurrentUser = () => {

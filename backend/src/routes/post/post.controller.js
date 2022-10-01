@@ -3,17 +3,21 @@ var mongoose = require('mongoose');
 const Post = require('../../models/post');
 
 const Expense = require('../../models/post')
+const { getUserInfo } = require('../../services/user_info')
 
 // get all expense
 async function insertPost(req, res) {
     const data = req.body
 
-    console.log(data);
+    const user = await getUserInfo(req)
+
+    console.log(user);
 
     const post = new Post();
     post.post_title =  data.blogData.title
     post.post_author = data.blogData.author
     post.post_body = data.blogData.content
+    post.post_owner_id = user.user_id
 
     try {
         await post.save()
@@ -23,7 +27,7 @@ async function insertPost(req, res) {
     }
 }
 
-async function gettPost(req, res) {
+async function getPost(req, res) {
     try {
         post = await Post.findOne({ _id: req.params.id })
         return res.status(200).json({
@@ -36,5 +40,5 @@ async function gettPost(req, res) {
 
 module.exports = {
     insertPost,
-    gettPost
+    getPost
 }
