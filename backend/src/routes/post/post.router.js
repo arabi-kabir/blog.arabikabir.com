@@ -4,7 +4,8 @@ const fs = require('fs')
 const path = require('path')
 const {
     insertPost,
-    getPost
+    getPost,
+    getMyPost
 } = require('./post.controller')
 
 
@@ -37,6 +38,8 @@ postRouter.post('/uploads', multipartyMiddleware, (req, res) => {
 })
 
 postRouter.post('/save-post-data', insertPost)
+postRouter.get ('/my-posts', getMyPost)
 postRouter.get ('/:id', getPost)
+
 
 module.exports = postRouter

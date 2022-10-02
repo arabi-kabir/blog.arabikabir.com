@@ -38,7 +38,23 @@ async function getPost(req, res) {
     }
 }
 
+
+async function getMyPost(req, res) {
+    try {
+        const user = await getUserInfo(req)
+
+        const posts = await Post.find({ post_owner_id: mongoose.Types.ObjectId(user.user_id) })
+        
+        return res.status(200).json({
+            my_posts: posts
+        })
+    } catch (error) {
+        res.status(400).send(error)
+    }
+}
+
 module.exports = {
     insertPost,
-    getPost
+    getPost,
+    getMyPost
 }
