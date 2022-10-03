@@ -11,12 +11,14 @@ import { useEffect } from 'react'
 import RestClient from '../../rest-client/RestClient'
 import PostValidate from '../../services/validation/post.validator'
 import { useNavigate } from 'react-router-dom'
+import TextArea from 'antd/lib/input/TextArea'
 
 function PostForm() {
     const [blogData, setBlogdata] = useState({
         title: '',
         author: '',
-        content: ''
+        content: '',
+        short_description: ''
     })
 
     const ckEditorEl = useRef(null)
@@ -53,19 +55,14 @@ function PostForm() {
                     blogData: blogData
                 })
                 .then(result => {
-                    setBlogdata({
-                        title: '',
-                        author: '',
-                        content: ''
-                    })
-        
                     if(result.status == 201) {
                         toast.success('Post saved successfully')
         
                         setBlogdata({
                             title: '',
                             author: '',
-                            content: ''
+                            content: '',
+                            short_description: ''
                         })
             
                         // Clear CKEditor content
@@ -95,7 +92,7 @@ function PostForm() {
         <Fragment>
             <Layout>
                 <div className='app'>
-                    <div className="container">
+                    <div className="container mb-3" style={{ marginBottom: '500px' }}>
                         <h3 className='mt-3'>Create Post</h3>
 
                         <div className="wrapper" style={{ marginBottom: '80px' }}>
@@ -108,6 +105,11 @@ function PostForm() {
                                 <div className="form-group mb-3">
                                     <label className="mb-2">Author</label>
                                     <Input placeholder='Author Name' name='author' value={blogData.author} onChange={hanldeChangeData}  />
+                                </div>
+
+                                <div className="form-group mb-3">
+                                    <label className="mb-2">Short Description</label>
+                                    <TextArea placeholder='Short Description' name='short_description' onChange={hanldeChangeData}>{blogData.short_description}</TextArea>
                                 </div>
 
                                 <div className="form-group mb-3">

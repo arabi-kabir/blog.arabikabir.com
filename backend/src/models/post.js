@@ -14,6 +14,10 @@ const postSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    short_description: {
+        type: String,
+        required: true
+    },
     post_owner_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'

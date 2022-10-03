@@ -11,13 +11,12 @@ async function insertPost(req, res) {
 
     const user = await getUserInfo(req)
 
-    console.log(user);
-
     const post = new Post();
     post.post_title =  data.blogData.title
     post.post_author = data.blogData.author
     post.post_body = data.blogData.content
     post.post_owner_id = user.user_id
+    post.short_description = data.short_description
 
     try {
         await post.save()
@@ -44,13 +43,17 @@ async function getMyPost(req, res) {
         const user = await getUserInfo(req)
 
         const posts = await Post.find({ post_owner_id: mongoose.Types.ObjectId(user.user_id) })
-        
+
         return res.status(200).json({
             my_posts: posts
         })
     } catch (error) {
         res.status(400).send(error)
     }
+}
+
+async function recentPosts(req, res) {
+
 }
 
 module.exports = {

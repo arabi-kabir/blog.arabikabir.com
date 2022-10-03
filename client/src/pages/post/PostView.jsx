@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useParams } from 'react-router-dom';
 import Layout from '../../components/layouts/Layout';
 import { Col, Row } from 'antd';
+import Sider from 'antd/lib/layout/Sider';
 
 function PostView() {
     const [post, setPost] = useState(null)
@@ -38,11 +39,12 @@ function PostView() {
         <Fragment>
             <Layout>
                 <Row>
-                    <Col xs={{
-                            span:16,
-                            offset: 4,
-                        }}
-                    >
+                    <Col xs={24} sm={12} md={4} style={{ backgroundColor: '#f1f2f6' }}>
+                        <div style={{ padding: '20px' }}>
+                            <p style={{ textAlign: 'center' }}>Recent posts from this author</p>
+                        </div>
+                    </Col>
+                    <Col xs={24} sm={12} md={20}>
                         <div style={{ padding: '40px' }}>
                             <h4 style={{ textAlign: 'center' }}>{ post.post_title }</h4>
                             <h6>Author : { post.post_author }</h6>

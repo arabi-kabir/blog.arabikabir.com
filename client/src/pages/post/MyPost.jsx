@@ -1,4 +1,4 @@
-import { Col, List, Row, Space, Typography } from 'antd'
+import { Button, Col, List, Row, Space, Tooltip, Typography } from 'antd'
 import React, { Fragment } from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
@@ -7,6 +7,8 @@ import RestClient from '../../rest-client/RestClient'
 import toast from 'react-hot-toast';
 import { Content } from 'antd/lib/layout/layout'
 import { useNavigate } from 'react-router-dom'
+import { EditOutlined } from '@ant-design/icons'
+import { DeleteOutlined } from '@ant-design/icons'
 
 function MyPost() {
     const navigate = useNavigate()
@@ -39,11 +41,9 @@ function MyPost() {
         <Fragment>
             <Layout>
              
-             <Content style={{ padding: '0 300px' }}>
+             <Content style={{ padding: '0 250px', marginBottom: '50px' }}>
                 <Row gutter={[48, 16]}>
                     <Col span={24}>
-               
-                    {/* <h2 style={{ textAlign }}>My Posts</h2> */}
 
                     <div style={{ marginTop: '50px' }}>
                         <List
@@ -55,6 +55,15 @@ function MyPost() {
                                     <Typography.Text mark>[ Titlle ]</Typography.Text> {post.post_title}
                                     <br />
                                     <Typography.Text mark>[ Author ]</Typography.Text> {post.post_author}
+                                    <br />
+
+                                    <Tooltip title="search">
+                                        <Button style={{ marginRight: '10px', marginTop: '10px' }} type="primary" size='sm' shape="circle" icon={<EditOutlined />} />
+                                    </Tooltip>
+
+                                    <Tooltip title="delete">
+                                        <Button danger type="primary" size='sm' shape="circle" icon={<DeleteOutlined />} />
+                                    </Tooltip>
                                 </List.Item>
                             )}
                         />
