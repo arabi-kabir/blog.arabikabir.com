@@ -49,7 +49,7 @@ app.use(bodyparser.json())
 app.use(express.json())
 
 app.use(cors({
-    origin: '*'
+    origin: ['http://blog.arabikabir.com']
 }));
 
 // routers
