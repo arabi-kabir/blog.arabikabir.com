@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useRef, useMemo } from 'react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import { CKEditor } from '@ckeditor/ckeditor5-react'
 import axios from 'axios'
@@ -6,12 +6,15 @@ import Layout from '../layouts/Layout'
 import Input from 'antd/lib/input/Input'
 import { Button } from 'antd'
 import toast from 'react-hot-toast';
-import { useRef } from 'react'
 import { useEffect } from 'react'
 import RestClient from '../../rest-client/RestClient'
 import PostValidate from '../../services/validation/post.validator'
 import { useNavigate } from 'react-router-dom'
 import TextArea from 'antd/lib/input/TextArea'
+
+
+
+
 
 function PostForm() {
     const [blogData, setBlogdata] = useState({
@@ -20,6 +23,8 @@ function PostForm() {
         content: '',
         short_description: ''
     })
+
+
 
     const ckEditorEl = useRef(null)
     const navigate = useNavigate()
@@ -39,6 +44,9 @@ function PostForm() {
             content: data
         })
     }
+
+
+   
 
     const submitBlog = async (e) => {
         e.preventDefault()
@@ -88,6 +96,8 @@ function PostForm() {
         }
     }
 
+
+
     return (
         <Fragment>
             <Layout>
@@ -104,16 +114,17 @@ function PostForm() {
 
                                 <div className="form-group mb-3">
                                     <label className="mb-2">Author</label>
-                                    <Input placeholder='Author Name' name='author' value={blogData.author} onChange={hanldeChangeData}  />
+                                    <Input placeholder='Author Name' name='author' value={blogData.author} onChange={hanldeChangeData} />
                                 </div>
 
                                 <div className="form-group mb-3">
                                     <label className="mb-2">Short Description</label>
-                                    <TextArea placeholder='Short Description' name='short_description' onChange={hanldeChangeData}>{blogData.short_description}</TextArea>
+                                    <Input placeholder='Short Description' name='short_description' onChange={hanldeChangeData} value={blogData.short_description} />
                                 </div>
 
                                 <div className="form-group mb-3">
                                     <label className="mb-2">Content</label>
+
 
                                     <CKEditor
                                         ref={ckEditorEl}
@@ -127,7 +138,10 @@ function PostForm() {
                                             {
                                                 ckfinder:{
                                                     uploadUrl: `${process.env.REACT_APP_UPLOAD_URL}/post/uploads`
-                                                }
+                                                },
+                                                fileTools_requestHeaders: {
+                                                    'Access-Control-Allow-Origin': `${process.env.REACT_APP_UPLOAD_URL}`
+                                              }
                                             }
                                         }
                                     />

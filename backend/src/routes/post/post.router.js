@@ -2,6 +2,7 @@ const express = require('express')
 const multiparty = require('connect-multiparty')
 const fs = require('fs')
 const path = require('path')
+const multer = require("multer")
 const {
     insertPost,
     getPost,
@@ -12,7 +13,7 @@ const {
 const postRouter = express.Router()
 
 const multipartyMiddleware = multiparty({
-    uploadDir: './images'
+    uploadDir: '.'
 })
 
 postRouter.post('/uploads', multipartyMiddleware, (req, res) => {

@@ -42,11 +42,15 @@ const path = require('path')
 
 const app = express()
 
-app.use(cors())
+// app.use(cors())
 app.use(express.static('./src/routes/post/uploads'))
 app.use(bodyparser.urlencoded({ extended: true }))
 app.use(bodyparser.json())
 app.use(express.json())
+
+app.use(cors({
+    origin: '*'
+}));
 
 // routers
 const api = require('./src/routes/api')
