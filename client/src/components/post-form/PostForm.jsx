@@ -138,9 +138,7 @@ function PostForm() {
                                             {
                                                 ckfinder:{
                                                     uploadUrl: `${process.env.REACT_APP_UPLOAD_URL}/post/uploads`
-                                                },
-                                                fileTools_requestHeaders: {
-                                                    'Access-Control-Allow-Origin': `${process.env.REACT_APP_UPLOAD_URL}`
+                                                } 
                                               }
                                             }
                                         }

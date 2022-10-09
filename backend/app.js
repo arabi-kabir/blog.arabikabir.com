@@ -49,13 +49,14 @@ app.use(bodyparser.json())
 app.use(express.json())
 
 // app.use(cors({
-//     origin: ['http://blog.arabikabir.com']
+//     origin: ['*']
 // }));
 
-const corsOption = {
-    origin: ['http://blog.arabikabir.com'],
-};
-app.use(cors(corsOption));
+// const corsOption = {
+//     origin: ['http://blog.arabikabir.com'],
+// }
+
+// app.use(cors(corsOption));
 
 // routers
 const api = require('./src/routes/api')
