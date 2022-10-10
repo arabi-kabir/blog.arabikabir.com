@@ -1,35 +1,27 @@
 const express = require('express')
 const bodyparser = require('body-parser')
 const cors = require('cors')
-const path = require('path')
 
 const app = express()
 
-// app.use(cors())
 app.use(express.static('./src/routes/post/uploads'))
 app.use(bodyparser.urlencoded({ extended: true }))
 app.use(bodyparser.json())
 app.use(express.json())
 
-app.use(cors({
-    origin: ['*']
-}));
 
-// const corsOption = {
-//     origin: ['http://blog.arabikabir.com'],
-// }
+var whitelist = [
+    'https://blog.arabikabir.com'
+];
 
-// app.use(cors(corsOption));
-
-app.use(function (req, res, next) {
-    if (req.hostname.endsWith('arabikabir.com')) {
-        res.setHeader('Access-Control-Allow-Origin', 'http://blog.' + req.hostname)
-        res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type')
-        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE')
-    }
-    next()
-})
-
+var corsOptions = {
+    origin: function(origin, callback){
+        var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
+        callback(null, originIsWhitelisted);
+    },
+    credentials: true
+};
+app.use(cors(corsOptions));
 
 
 // routers
