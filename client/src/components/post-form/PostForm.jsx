@@ -1,7 +1,4 @@
 import React, { Fragment, useState, useRef, useMemo } from 'react'
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
-import { CKEditor } from '@ckeditor/ckeditor5-react'
-import axios from 'axios'
 import Layout from '../layouts/Layout'
 import Input from 'antd/lib/input/Input'
 import { Button } from 'antd'
@@ -10,13 +7,10 @@ import { useEffect } from 'react'
 import RestClient from '../../rest-client/RestClient'
 import PostValidate from '../../services/validation/post.validator'
 import { useNavigate } from 'react-router-dom'
-import TextArea from 'antd/lib/input/TextArea'
-
-
-
-
+import JoditEditor from 'jodit-react';
 
 function PostForm() {
+    const navigate = useNavigate()
     const [blogData, setBlogdata] = useState({
         title: '',
         author: '',
@@ -24,11 +18,6 @@ function PostForm() {
         short_description: ''
     })
 
-
-
-    const ckEditorEl = useRef(null)
-    const navigate = useNavigate()
- 
     const hanldeChangeData = (e) => {
         setBlogdata({
             ...blogData,
@@ -36,25 +25,28 @@ function PostForm() {
         })
     }
 
-    const handleCkeditorState = (event, editor) => {
-        const data = editor.getData()
+    // JODIT REACT
+    const editor = useRef(null);
+	const [contentJodit, setContent] = useState('');
 
+    useEffect(() => {
         setBlogdata({
             ...blogData,
-            content: data
+            content: contentJodit
+        })
+
+    }, [contentJodit])
+
+    const textEditorNewContent = () => {
+        setBlogdata({
+            ...blogData,
+            content: editor.current.value
         })
     }
 
-
-   
-
     const submitBlog = async (e) => {
         e.preventDefault()
-
         const errors = PostValidate.validate(blogData)
-
-        // console.log(ckEditorEl.current.editor.getData());
-
         const url = `${process.env.REACT_APP_UPLOAD_URL}/post/save-post-data`
 
         if(errors.length == 0) {
@@ -72,9 +64,6 @@ function PostForm() {
                             content: '',
                             short_description: ''
                         })
-            
-                        // Clear CKEditor content
-                        ckEditorEl.current.editor.setData('')
     
                         navigate('/my-posts')
                     } else {
@@ -125,30 +114,20 @@ function PostForm() {
                                 <div className="form-group mb-3">
                                     <label className="mb-2">Content</label>
 
-
-                                    <CKEditor
-                                        ref={ckEditorEl}
-                                        id="myCkEditor"
-                                        editor={ClassicEditor}
-                                        onReady={editor => {
-                                            // editor.ui.view.editable.element.style.height = '300px';
-                                        }}
-                                        onChange={handleCkeditorState}
-                                        config={
-                                            {
-                                                ckfinder:{
-                                                    uploadUrl: `${process.env.REACT_APP_UPLOAD_URL}/post/uploads`
-                                                } 
-                                              }
-                                            }
-                                        }
+                                    <JoditEditor
+                                        ref={editor}
+                                        value={contentJodit}
+                                        // config={config}
+                                        tabIndex={1} 
+                                        onBlur={newContent => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
+                                        onChange={textEditorNewContent}
                                     />
                                 </div>
 
                                 <div className="form-group">
                                     <Button 
                                         onClick={submitBlog} 
-                                        block 
+                                        // block 
                                         style={{ backgroundColor: '#27ae60', color: 'white' }}
                                     >
                                         SUBMIT POST

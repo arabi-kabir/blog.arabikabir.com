@@ -1,40 +1,3 @@
-
-// app.post('/uploads', multipartyMiddleware, (req, res) => {
-//     let tempFile = req.files.upload;
-//     let temPathFile = tempFile.path
-
-//     let targetPathUrl = path.join(__dirname, "./uploads/" + tempFile.name)
-
-//     if(path.extname(tempFile.originalFilename).toLowerCase() === "png" || ".jpg" || ".jpeg") {
-//         fs.rename(temPathFile, targetPathUrl, err => {
-//             const basename = path.basename(targetPathUrl)
-
-//             if(err) {
-//                 return console.log(err);
-//             }
-
-//             res.status(200).json({
-//                 uploaded: true,
-//                 url: `${process.env.SITE_URL}/${basename}`
-//             })
-//         })
-//     }
-// })
-
-// app.post('/save-blog-data', (req, res) => {
-//     console.log(req.body);
-// })
-
-// app.listen(PORT, () => {
-//     console.log(`Server started at : + ${PORT}`);
-// })
-
-
-
-
-
-
-
 const express = require('express')
 const bodyparser = require('body-parser')
 const cors = require('cors')
@@ -57,6 +20,17 @@ app.use(express.json())
 // }
 
 // app.use(cors(corsOption));
+
+// app.use(function (req, res, next) {
+//     if (req.hostname.endsWith('arabikabir.com')) {
+//         res.setHeader('Access-Control-Allow-Origin', 'http://' + req.hostname)
+//         res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type')
+//         res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE')
+//     }
+//     next()
+// })
+
+
 
 // routers
 const api = require('./src/routes/api')

@@ -20,6 +20,7 @@ const postSchema = new mongoose.Schema({
     },
     post_owner_id: {
         type: mongoose.Schema.Types.ObjectId,
+        required: true,
         ref: 'User'
     },
 }, {

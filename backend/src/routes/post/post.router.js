@@ -6,40 +6,21 @@ const multer = require("multer")
 const {
     insertPost,
     getPost,
-    getMyPost
+    getMyPost,
+    getAllPost
 } = require('./post.controller')
-
+const auth = require('../../middleware/auth')
 
 const postRouter = express.Router()
 
-const multipartyMiddleware = multiparty({
-    uploadDir: '.'
-})
+postRouter.get ('/all-posts', getAllPost)
 
-postRouter.post('/uploads', multipartyMiddleware, (req, res) => {
-    let tempFile = req.files.upload;
-    let temPathFile = tempFile.path
 
-    let targetPathUrl = path.join(__dirname, "./uploads/" + tempFile.name)
+// postRouter.use(auth)
 
-    if(path.extname(tempFile.originalFilename).toLowerCase() === "png" || ".jpg" || ".jpeg") {
-        fs.rename(temPathFile, targetPathUrl, err => {
-            const basename = path.basename(targetPathUrl)
+postRouter.post('/save-post-data', auth, insertPost)
+postRouter.get ('/my-posts', auth, getMyPost)
 
-            if(err) {
-                return console.log(err);
-            }
-
-            res.status(200).json({
-                uploaded: true,
-                url: `${process.env.SITE_URL}/${basename}`
-            })
-        })
-    }
-})
-
-postRouter.post('/save-post-data', insertPost)
-postRouter.get ('/my-posts', getMyPost)
 postRouter.get ('/:id', getPost)
 
 

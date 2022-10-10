@@ -1,6 +1,7 @@
 const User = require('../../models/user')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const { getUserInfo } = require('../../services/user_info')
 
 // user registration
 async function userSignup(req, res) {
@@ -81,7 +82,14 @@ async function userSignin(req, res) {
     }
 }
 
+async function validateToken(req, res) {
+    const user = await getUserInfo(req)
+    console.log(user);
+    res.status(200).json(user)
+}
+
 module.exports = {
     userSignup,
-    userSignin
+    userSignin,
+    validateToken
 }

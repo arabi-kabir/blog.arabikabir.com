@@ -15,8 +15,8 @@ async function insertPost(req, res) {
     post.post_title =  data.blogData.title
     post.post_author = data.blogData.author
     post.post_body = data.blogData.content
+    post.short_description = data.blogData.short_description
     post.post_owner_id = user.user_id
-    post.short_description = data.short_description
 
     try {
         await post.save()
@@ -37,12 +37,30 @@ async function getPost(req, res) {
     }
 }
 
+async function getAllPost(req, res) {
+    const PAGE_SIZE = 5
+    const page = parseInt(req.query.page || 0)
+    const total = await Post.countDocuments({})
+
+    try {
+        post = await Post.find({})
+            .limit(PAGE_SIZE)
+            .skip(PAGE_SIZE * page)
+            .sort({'createdAt': -1})
+
+        return res.status(200).json({
+            post_data: post,
+            totalPages: Math.ceil(total / PAGE_SIZE)
+        })
+    } catch (error) {
+        res.status(400).send(error)
+    }
+}
 
 async function getMyPost(req, res) {
     try {
         const user = await getUserInfo(req)
-
-        const posts = await Post.find({ post_owner_id: mongoose.Types.ObjectId(user.user_id) })
+        const posts = await Post.find({ post_owner_id: mongoose.Types.ObjectId(user.user_id) }).sort({'createdAt': -1})
 
         return res.status(200).json({
             my_posts: posts
@@ -59,5 +77,6 @@ async function recentPosts(req, res) {
 module.exports = {
     insertPost,
     getPost,
-    getMyPost
+    getMyPost,
+    getAllPost
 }

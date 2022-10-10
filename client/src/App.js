@@ -20,10 +20,11 @@ function App() {
 					<Route path="/sign-in" element={<Signin />} />
 					<Route path="/sign-out" element={<Logout />} />
 
+					<Route path="/post/:id" element={<PostView />} />
+
 					<Route element={<ProtectedRoutes/>}>
 						<Route path="/my-posts" element={<MyPost />} />
 						<Route path="/post-create" element={<PostCreate />} />
-						<Route path="/post/:id" element={<PostView />} />
 					</Route>
 
 

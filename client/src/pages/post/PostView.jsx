@@ -5,6 +5,8 @@ import { useParams } from 'react-router-dom';
 import Layout from '../../components/layouts/Layout';
 import { Col, Row } from 'antd';
 import Sider from 'antd/lib/layout/Sider';
+import RestClient from '../../rest-client/RestClient';
+import AppUrl from '../../rest-client/AppUrl';
 
 function PostView() {
     const [post, setPost] = useState(null)
@@ -15,10 +17,9 @@ function PostView() {
     }, [])
 
     const getPost = async () => {
-        let post_id = '633195f7f804064dad07a48d'
-        const url = `${process.env.REACT_APP_UPLOAD_URL}/post/${id}`
+        const url = `${AppUrl.post}/${id}`
 
-        axios.get(url)
+        RestClient.getRequest(url)
         .then(function (response) {
             setPost(response.data.post_data)
         })
@@ -39,12 +40,7 @@ function PostView() {
         <Fragment>
             <Layout>
                 <Row>
-                    <Col xs={24} sm={12} md={4} style={{ backgroundColor: '#f1f2f6' }}>
-                        <div style={{ padding: '20px' }}>
-                            <p style={{ textAlign: 'center' }}>Recent posts from this author</p>
-                        </div>
-                    </Col>
-                    <Col xs={24} sm={12} md={20}>
+                    <Col xs={24} sm={24} md={24}>
                         <div style={{ padding: '40px' }}>
                             <h4 style={{ textAlign: 'center' }}>{ post.post_title }</h4>
                             <h6>Author : { post.post_author }</h6>

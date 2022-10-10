@@ -3,12 +3,18 @@ import axios from "axios";
 
 class RestClient {
     static getRequest = (url) => {
+        var cors = {
+            origin: `${process.env.BACKEND_ORIGIN_API}`
+        }
+
         const token = localStorage.getItem("token");
 
         return axios
             .get(url, {
                 headers: {
-                  'x-access-token': JSON.parse(token)
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': cors.origin,
+                    'x-access-token': JSON.parse(token)
                 }
             })
             .then(response => {
