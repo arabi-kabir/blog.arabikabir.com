@@ -21,14 +21,14 @@ app.use(cors({
 
 // app.use(cors(corsOption));
 
-// app.use(function (req, res, next) {
-//     if (req.hostname.endsWith('arabikabir.com')) {
-//         res.setHeader('Access-Control-Allow-Origin', 'http://' + req.hostname)
-//         res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type')
-//         res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE')
-//     }
-//     next()
-// })
+app.use(function (req, res, next) {
+    if (req.hostname.endsWith('arabikabir.com')) {
+        res.setHeader('Access-Control-Allow-Origin', 'http://blog.' + req.hostname)
+        res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type')
+        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE')
+    }
+    next()
+})
 
 
 
