@@ -60,13 +60,13 @@ class RestClient {
             origin: `${process.env.BACKEND_ORIGIN_API}`
         }
 
-        const token = localStorage.getItem("token");
+        const token = JSON.parse(localStorage.getItem("token"))
         
         let config = {
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': cors.origin,
-                'x-access-token': JSON.parse(token)
+                'x-access-token': token
             }
         }
 
@@ -77,10 +77,6 @@ class RestClient {
             })
             .catch(error => {
                 console.log(error.response.data);
-                if(error.response.data == 'Invalid Token') {
-                    //toast.success('Please login first')
-                    //window.location.href = process.env.DOMAIN;
-                }
                 return error
             })
     }

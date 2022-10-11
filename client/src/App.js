@@ -10,6 +10,7 @@ import './App.css'
 import ProtectedRoutes from './components/utils/ProtectedRoutes';
 import Logout from "./components/utils/Logout";
 import MyPost from "./pages/post/MyPost";
+import PostEdit from "./pages/post/PostEdit";
 
 function App() {
 	return (
@@ -24,6 +25,7 @@ function App() {
 
 					<Route element={<ProtectedRoutes/>}>
 						<Route path="/my-posts" element={<MyPost />} />
+						<Route path="/my-posts/edit/:id" element={<PostEdit />} />
 						<Route path="/post-create" element={<PostCreate />} />
 					</Route>
 

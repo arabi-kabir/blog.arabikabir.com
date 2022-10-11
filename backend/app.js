@@ -11,7 +11,8 @@ app.use(express.json())
 
 
 var whitelist = [
-    'https://blog.arabikabir.com'
+    'https://blog.arabikabir.com',
+    'http://localhost:3000'
 ];
 
 var corsOptions = {

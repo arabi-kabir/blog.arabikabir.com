@@ -1,9 +1,7 @@
 const { response } = require('express');
 var mongoose = require('mongoose');
 const Post = require('../../models/post');
-
-const Expense = require('../../models/post')
-const { getUserInfo } = require('../../services/user_info')
+const { getUserInfo } = require('../../services/user_info');
 
 // get all expense
 async function insertPost(req, res) {
@@ -32,6 +30,43 @@ async function getPost(req, res) {
         return res.status(200).json({
             post_data: post
         })
+    } catch (error) {
+        res.status(400).send(error)
+    }
+}
+
+async function updatePost(req, res) {
+    try {
+        const post = await Post.findOne({ _id: req.params.id })
+
+        if(!post) {
+            res.status(400).send('post not found')
+        } else {
+            const data = req.body
+            console.log(data);
+            post.post_title = data.blogData.title
+            post.post_author = data.blogData.author
+            post.post_body = data.blogData.content
+            post.short_description = data.blogData.short_description
+            await post.save()
+
+            res.status(200).send('post saved')
+        }
+    } catch (error) {
+        res.status(400).send(error)
+    }
+}
+
+async function deletePost(req, res) {
+    try {
+        const post = await Post.findOne({ _id: req.params.id })
+
+        if(!post) {
+            res.status(400).send('post not found')
+        } else {
+            post.remove()
+            res.status(200).send('post deleted')
+        }
     } catch (error) {
         res.status(400).send(error)
     }
@@ -78,5 +113,7 @@ module.exports = {
     insertPost,
     getPost,
     getMyPost,
-    getAllPost
+    getAllPost,
+    updatePost,
+    deletePost
 }
