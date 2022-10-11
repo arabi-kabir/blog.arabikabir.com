@@ -1,7 +1,7 @@
 import React from 'react';
 import Layout from '../../components/layouts/Layout';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Button, Checkbox, Form, Input, Col, Row } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -46,10 +46,14 @@ function Signin() {
 
 	return (
 		<Layout>
-			<Content
-				className="site-layout"
-				style={{ display: 'flex', justifyContent: 'center', marginTop: '50px' }}
-			>
+			<div style={{ textAlign: 'center', marginTop: '30px' }}>
+				<h4 style={{ fontWeight: 300 }}>Sign in</h4>
+			</div>
+
+			<div>
+				<Row>
+					<Col sxs={2} sm={2} md={6} lg={8} xl={8}></Col>
+					<Col sxs={20} sm={20} md={12} lg={8} xl={8}>
 				<Form
 					name="normal_login"
 					className="login-form"
@@ -62,7 +66,6 @@ function Signin() {
 								message: 'Please input your email!',
 							},
 						]}
-						style={{ width: '500px' }}
 					>
 						<Input 
 							prefix={<UserOutlined className="site-form-item-icon" />} 
@@ -100,7 +103,10 @@ function Signin() {
 						</Button>
 					</Form.Item>
 				</Form>
-			</Content>
+				</Col>
+					<Col sxs={2} sm={2} md={6} lg={8} xl={8}></Col>
+				</Row>
+			</div>
 		</Layout>
 	);
 };
