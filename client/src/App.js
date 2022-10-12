@@ -11,6 +11,7 @@ import ProtectedRoutes from './components/utils/ProtectedRoutes';
 import Logout from "./components/utils/Logout";
 import MyPost from "./pages/post/MyPost";
 import PostEdit from "./pages/post/PostEdit";
+import Signup from "./pages/auth/Signup";
 
 function App() {
 	return (
@@ -19,6 +20,7 @@ function App() {
 				<Routes>
 					<Route path="/" element={<BlogIndex />} />
 					<Route path="/sign-in" element={<Signin />} />
+					<Route path="/sign-up" element={<Signup />} />
 					<Route path="/sign-out" element={<Logout />} />
 
 					<Route path="/post/:id" element={<PostView />} />

@@ -1,20 +1,19 @@
 import React from 'react';
 import Layout from '../../components/layouts/Layout';
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Form, Input } from 'antd';
+import { LockOutlined, UserOutlined, MailOutlined } from '@ant-design/icons';
+import { Button, Checkbox, Col, Form, Input, Row } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import AuthService from '../../services/auth/auth.service';
+import toast from 'react-hot-toast';
 
 
-function Signin() {
-	const onFinish = (values) => {
-		console.log('Received values of form: ', values);
-	};
-
+function Signup() {
 	const [formData, setformData] = useState({
         email: '',
-        password: ''
+        password: '',
+		name: ''
     });
 
     const navigate = useNavigate()
@@ -32,7 +31,7 @@ function Signin() {
         e.preventDefault()
 
         try {
-            const res = await AuthService.login(email, password)
+            const res = await AuthService.Signup(email, password)
             if(res) {
                 navigate('/dashboard')
 
@@ -46,61 +45,81 @@ function Signin() {
 
 	return (
 		<Layout>
-			<Content
-				className="site-layout"
-				// style={{
-				// 	padding: "0 100px",
-				// 	marginTop: 64
-				// }}
-				style={{ display: 'flex', justifyContent: 'center', marginTop: '50px' }}
-			>
-				<Form
-					name="normal_login"
-					className="login-form"
-					initialValues={{
-						remember: true,
-					}}
-					onFinish={onFinish}
-				>
-					<Form.Item
-						name="email"
-						rules={[
-							{
-								required: true,
-								message: 'Please input your email!',
-							},
-						]}
-						style={{ width: '500px' }}
-					>
-						<Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email" autoComplete="new-email" style={{ autocomplete:"off" }} />
-					</Form.Item>
+			<div style={{ textAlign: 'center', marginTop: '30px' }}>
+				<h4 style={{ fontWeight: 300 }}>User Sign up</h4>
+			</div>
 
-					<Form.Item
-						name="password"
-						rules={[
-							{
-								required: true,
-								message: 'Please input your Password!',
-							},
-						]}
-					>
-						<Input
-							prefix={<LockOutlined className="site-form-item-icon" />}
-							type="password"
-							placeholder="Password"
-							autoComplete="new-password"
-						/>
-					</Form.Item>
+			<div>
+				<Row>
+					<Col sxs={2} sm={2} md={6} lg={8} xl={8}></Col>
+					<Col sxs={20} sm={20} md={12} lg={8} xl={8}>
+						<Form
+							name="normal_login"
+							className="login-form"
+							initialValues={{
+								remember: true,
+							}}
+						>
+							<Form.Item
+								name="name"
+								rules={[
+									{
+										required: true,
+										message: 'Please input your Name!',
+									},
+								]}
+							>
+								<Input
+									prefix={<UserOutlined className="site-form-item-icon" />}
+									type="password"
+									placeholder="Name"
+									autoComplete="new-name"
+								/>
+							</Form.Item>
 
-					<Form.Item>
-						<Button type="primary" htmlType="submit" className="login-form-button">
-							Log in
-						</Button>
-					</Form.Item>
-				</Form>
-			</Content>
+							<Form.Item
+								name="email"
+								rules={[
+									{
+										required: true,
+										message: 'Please input your email!',
+									},
+								]}
+							>
+								<Input prefix={<MailOutlined className="site-form-item-icon" />} placeholder="Email" autoComplete="new-email" style={{ autocomplete:"off" }} />
+							</Form.Item>
+
+							<Form.Item
+								name="password"
+								rules={[
+									{
+										required: true,
+										message: 'Please input your Password!',
+									},
+								]}
+							>
+								<Input
+									prefix={<LockOutlined className="site-form-item-icon" />}
+									type="password"
+									placeholder="Password"
+									autoComplete="new-password"
+								/>
+							</Form.Item>
+
+							
+
+							<Form.Item>
+								<Button type="primary" htmlType="submit" className="login-form-button">
+									Sign up
+								</Button>
+							</Form.Item>
+						</Form>
+					</Col>
+					<Col sxs={2} sm={2} md={6} lg={8} xl={8}></Col>
+				</Row>
+			</div>
 		</Layout>
 	);
 };
 
-export default Signin;
+export default Signup;

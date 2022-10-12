@@ -61,6 +61,12 @@ function Navigation() {
                     [ Signin ]
                 </Link>
             </Button>
+
+            <Button type='link'>
+                <Link to={'/sign-up'}>
+                    [ Signup ]
+                </Link>
+            </Button>
         </div>
     }
 
