@@ -88,43 +88,40 @@ function MyPost() {
     return (
         <Fragment>
             <Layout>
-                <Content style={{ padding: '0 250px', marginBottom: '50px' }}>
-                    <h5 style={{ marginTop: '40px', marginBottom: '30px' }}>My Posts</h5>
-
-                    <Row gutter={[48, 16]}>
-                        <Col span={24}>
-                            <div>
-                                <Space
-                                    direction="vertical"
-                                    size="middle"
-                                    style={{
-                                    display: 'flex',
-                                    }}
-                                >
-                                {
-                                    posts.map((post) => (
-                                        <Card
-                                            style={{ width: '100%', cursor: 'pointer', backgroundColor: '#f0f0f0' }}
-                                            actions={[
-                                                <Tooltip title="Edit Post"> <EditOutlined key="edit" onClick={() => navigate('/my-posts/edit/' + post._id) } /> </Tooltip>,
-                                                <Tooltip title="Delete Post"> <DeleteOutlined key="delete" onClick={() => deleteModal(post._id)} /> </Tooltip>
-                                            ]}
-                                            key={post._id}
-                                        >
-                                        <Meta
-                                            title={post.post_title}
-                                            description={post.short_description}
-                                            onClick={() => navigate(`/post/${post._id}`)}
-                                        />
-                                        </Card>
-                                    ))
-                                }
-                                </Space>
-                            </div>
+                <h5 style={{ marginTop: '30px', marginBottom: '10px', textAlign: 'center', fontWeight: 300 }}>My Posts</h5>
+                <Row>
+                    <Col xs={2} xl={6}></Col>
+                    <Col xs={20} xl={12}>
+                        <Space  
+                            direction="vertical"
+                            size="middle"
+                            style={{
+                                marginTop: '20px'
+                            }}
+                        >
+                            {
+                                posts.map((post) => (
+                                    <Card
+                                        style={{ width: '100%', cursor: 'pointer', backgroundColor: '#f0f0f0' }}
+                                        actions={[
+                                            <Tooltip title="Edit Post"> <EditOutlined key="edit" onClick={() => navigate('/my-posts/edit/' + post._id) } /> </Tooltip>,
+                                            <Tooltip title="Delete Post"> <DeleteOutlined key="delete" onClick={() => deleteModal(post._id)} /> </Tooltip>
+                                        ]}
+                                        key={post._id}
+                                    >
+                                    <Meta
+                                        title={post.post_title}
+                                        description={post.short_description}
+                                        onClick={() => navigate(`/post/${post._id}`)}
+                                    />
+                                    </Card>
+                                ))
+                            }
+                            </Space>
                         </Col>
+                        <Col xs={2} xl={6}></Col>
                     </Row>
-                </Content>
-            </Layout>
+                </Layout>
 
             <MyModal title='Delete Confirmation' isModalOpen={modalOpenFlag} onModalCancel={modalOnCancel} onModalOk={modalOnOk} confirmLoading={confirmLoading}>
                 <p>Are you sure want to <span style={{ color: 'red' }}>DELETE</span> this post ?</p>

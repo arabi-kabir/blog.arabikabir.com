@@ -2,7 +2,6 @@ import React from 'react';
 import Layout from '../../components/layouts/Layout';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input, Col, Row } from 'antd';
-import { Content } from 'antd/lib/layout/layout';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthService from '../../services/auth/auth.service'
@@ -52,8 +51,8 @@ function Signin() {
 
 			<div>
 				<Row>
-					<Col sxs={2} sm={2} md={6} lg={8} xl={8}></Col>
-					<Col sxs={20} sm={20} md={12} lg={8} xl={8}>
+					<Col xs={2} xl={8}></Col>
+					<Col xs={20} xl={8}>
 				<Form
 					name="normal_login"
 					className="login-form"
@@ -104,7 +103,7 @@ function Signin() {
 					</Form.Item>
 				</Form>
 				</Col>
-					<Col sxs={2} sm={2} md={6} lg={8} xl={8}></Col>
+					<Col xs={2} xl={8}></Col>
 				</Row>
 			</div>
 		</Layout>

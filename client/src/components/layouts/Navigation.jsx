@@ -1,17 +1,15 @@
-import { Button, Menu } from 'antd'
-import { Header } from 'antd/lib/layout/layout'
+import { Menu } from 'antd'
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 import AppUrl from '../../rest-client/AppUrl';
 import RestClient from '../../rest-client/RestClient';
 
 function Navigation() {
     const token = localStorage.getItem("token");
-
-    let loggedinUserRoutes = '';
-
+    const navigate = useNavigate()
+    const [current, setCurrent] = useState('mail');
     const [tokenStatus, setTokenStatus] = useState('')
+    let items = '';
 
     useEffect(() => {
         getTokenStatus()
@@ -22,65 +20,49 @@ function Navigation() {
         setTokenStatus(response.data)
     }
 
+    const onClick = (e) => {
+        setCurrent(e.key);
+        navigate(e.key)
+    };
+
     if(token && tokenStatus != 'user not found') {
-        loggedinUserRoutes = <div>
-            <Button type='link'>
-                <Link to={'/'}>
-                    [ Blog ]
-                </Link>
-            </Button>
-
-            <Button type='link'>
-                <Link to={'/my-posts'}>
-                    [ My Post ]
-                </Link>
-            </Button>
-
-            <Button type='link'>
-                <Link to={'/post-create'}>
-                    [ Create Post ]
-                </Link>
-            </Button>
-
-            <Button type='link'>
-                <Link to={'/sign-out'}>
-                    [ Signout ]
-                </Link>
-            </Button>
-        </div>
+        items = [
+            {
+                label: '[ Blog ]',
+                key: '/'
+            },
+            {
+                label: '[ My Posts ]',
+                key: '/my-posts'
+            },
+            {
+                label: '[ Create Post ]',
+                key: '/post-create'
+            },
+            {
+                label: '[ Sign out ]',
+                key: '/sign-out'
+            }
+        ]
     } else {
-        loggedinUserRoutes = <div>
-            <Button type='link'>
-                <Link to={'/'}>
-                    [ Blog ]
-                </Link>
-            </Button>
-
-            <Button type='link'>
-                <Link to={'/sign-in'}>
-                    [ Signin ]
-                </Link>
-            </Button>
-
-            <Button type='link'>
-                <Link to={'/sign-up'}>
-                    [ Signup ]
-                </Link>
-            </Button>
-        </div>
+        items = [
+            {
+              label: '[ Blog ]',
+              key: '/'
+            },
+            {
+                label: '[ Sign In ]',
+                key: '/sign-in'
+            },
+            {
+                label: '[ Sign Up ]',
+                key: '/sign-up'
+            }
+        ]
     }
-
+    
     return (
-        <div>
-            <Header
-                style={{
-                    zIndex: 1,
-                    width: '100%',
-                }}
-            >
-                {loggedinUserRoutes}
-            </Header>
-        </div>
+        <Menu theme='dark' onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />
     )
 }
 

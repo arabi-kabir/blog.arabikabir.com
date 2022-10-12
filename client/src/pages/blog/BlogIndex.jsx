@@ -66,55 +66,48 @@ function BlogIndex() {
     return (
         <Fragment>
             <Layout>
-                <Content style={{ padding: '0 250px', marginBottom: '50px' }}>
-                    <Row gutter={[48, 16]}>
-                        <Col span={24}>
-                            <div style={{ marginTop: '50px' }}>
-                                <Space
-                                    direction="vertical"
-                                    size="middle"
-                                    style={{
-                                        display: 'flex',
-                                    }}
-                                >
-                                {
-                                    posts && posts.map((post) => (
-                                        <Card
-                                            style={{ width: '100%', cursor: 'pointer', backgroundColor: '#f0f0f0' }}
-                                            key={post._id}
-                                        >
+                <h5 style={{ marginTop: '30px', marginBottom: '10px', textAlign: 'center', fontWeight: 300 }}>Lastest Posts ...</h5>
+                <Row>
+                    <Col xs={2} xl={6}></Col>
+                    <Col xs={20} xl={12}>
+                        <Space  
+                            direction="vertical"
+                            size="middle"
+                            style={{
+                                marginTop: '20px'
+                            }}
+                        >
+                            {
+                                posts && posts.map((post) => (
+                                    
+                                    <Card
+                                        style={{ width: '100%', cursor: 'pointer', backgroundColor: '#f0f0f0' }}
+                                        key={post._id}
+                                    >
                                         <Meta
                                             title={post.post_title}
                                             description={post.short_description}
                                             onClick={() => navigate(`/post/${post._id}`)}
                                         />
-                                        </Card>
-                                    ))
-                                }
-                                </Space>
-                            </div>
+                                    </Card>
+                                ))
+                            }
+                        </Space>
 
-                            <Space  
-                                // direction="vertical"
-                                // size="middle"
-                                style={{
-                                    // display: 'flex',
-                                    marginTop: '20px'
-                                }}
-                            >
-                                {/* <Grid item xs={8}> */}
-                                    <Button onClick={gotoPrevious}>Previous</Button>
-                                    <Button onClick={gotoNext}>Next</Button>                             
-                                {/* </Grid>
-                                <Grid item xs={4}> */}
-                                    
-                                {/* </Grid> */}
-                            </Space>
+                        <Space  
+                            style={{
+                                marginTop: '20px'
+                            }}
+                        >
+                            <Button onClick={gotoPrevious}>Previous</Button>
+                            <Button onClick={gotoNext}>Next</Button>                             
+                        </Space>
 
-                            <p style={{ float: 'right', paddingRight: '10px', marginTop: '20px' }}>Page of {pageNumber + 1}</p>
-                        </Col>
-                    </Row>
-                </Content>
+                        <p style={{ float: 'right', paddingRight: '10px', marginTop: '20px' }}>Page of {pageNumber + 1}</p>     
+                    </Col>
+                    <Col xs={2} xl={6}></Col>
+                </Row>
+                          
             </Layout>
         </Fragment>
     )

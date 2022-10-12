@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import PostCreate from "./pages/post/PostCreate";
 import PostView from "./pages/post/PostView";
@@ -22,7 +22,6 @@ function App() {
 					<Route path="/sign-in" element={<Signin />} />
 					<Route path="/sign-up" element={<Signup />} />
 					<Route path="/sign-out" element={<Logout />} />
-
 					<Route path="/post/:id" element={<PostView />} />
 
 					<Route element={<ProtectedRoutes/>}>
@@ -30,15 +29,11 @@ function App() {
 						<Route path="/my-posts/edit/:id" element={<PostEdit />} />
 						<Route path="/post-create" element={<PostCreate />} />
 					</Route>
-
-
-					{/* <Route path="/" /> */}
 				</Routes>
 			</Router>
 			
 			<Toaster />
 		</Fragment>
-		
 	);
 }
 
