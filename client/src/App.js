@@ -12,6 +12,7 @@ import Logout from "./components/utils/Logout";
 import MyPost from "./pages/post/MyPost";
 import PostEdit from "./pages/post/PostEdit";
 import Signup from "./pages/auth/Signup";
+import MyProfile from "./pages/profile/MyProfile";
 
 function App() {
 	return (
@@ -28,6 +29,7 @@ function App() {
 						<Route path="/my-posts" element={<MyPost />} />
 						<Route path="/my-posts/edit/:id" element={<PostEdit />} />
 						<Route path="/post-create" element={<PostCreate />} />
+						<Route path="/my-profile" element={<MyProfile />} />
 					</Route>
 				</Routes>
 			</Router>

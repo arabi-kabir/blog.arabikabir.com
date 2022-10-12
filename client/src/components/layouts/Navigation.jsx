@@ -32,12 +32,16 @@ function Navigation() {
                 key: '/'
             },
             {
+                label: '[ Create Post ]',
+                key: '/post-create'
+            },
+            {
                 label: '[ My Posts ]',
                 key: '/my-posts'
             },
             {
-                label: '[ Create Post ]',
-                key: '/post-create'
+                label: '[ My Profile ]',
+                key: '/my-profile'
             },
             {
                 label: '[ Sign out ]',

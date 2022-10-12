@@ -38,7 +38,6 @@ function MyPost() {
                 setLoading(false)
             } else {
                 setLoading(true)
-                console.log(result.response.data);
                 toast.error(result.response.data)
                 toast.error('Something is wrong! Please sign-in again')
             }
@@ -63,7 +62,6 @@ function MyPost() {
 
     const modalOnOk = async () => {
         setConfirmLoading(true)
-        console.log('asasa');
         try {
             const url = AppUrl.post + `/delete-post/${deletePostId}`
 
@@ -96,8 +94,10 @@ function MyPost() {
                             direction="vertical"
                             size="middle"
                             style={{
-                                marginTop: '20px'
+                                marginTop: '20px',
+                                width: '100%'
                             }}
+                        
                         >
                             {
                                 posts.map((post) => (

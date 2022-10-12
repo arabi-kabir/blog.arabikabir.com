@@ -18,6 +18,21 @@ const signin = (email, password) => {
     }
 }
 
+const signup = (name, email, password) => {
+    try {
+        return RestClient.postRequest(AppUrl.authSignup, { name, email, password })
+        .then(result => {
+            if(result.status == 201) {
+                localStorage.setItem("user", JSON.stringify(result.data))
+                localStorage.setItem("token", JSON.stringify(result.data.token))
+            }
+            return result;
+        })
+    } catch (error) {
+        return error
+    }
+}
+
 const logout = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
@@ -45,6 +60,7 @@ const setAuthToken = token => {
 const AuthService = {
     signin,
     logout,
+    signup,
     getCurrentUser,
     setAuthToken
 }

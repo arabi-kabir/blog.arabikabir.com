@@ -17,7 +17,7 @@ function Signup() {
 
     const navigate = useNavigate()
 
-    const { email, password } = formData
+    const { email, password, name } = formData
 
     const onTextChange = (e) => {
         setformData((prevState) => ({
@@ -30,15 +30,18 @@ function Signup() {
         e.preventDefault()
 
         try {
-            const res = await AuthService.Signup(email, password)
-            if(res) {
-                navigate('/dashboard')
+            const res = await AuthService.signup(name, email, password)
+			console.log(res);
+            if(res && res.status == 201) {
+                navigate('/my-posts')
 
-                toast.success('Logged in successfully')
-            }
+                toast.success('Signed up successfully')
+            } else {
+				toast.error(res.response.data)
+			}
         } catch (error) {
             console.log(error);
-            toast.success('Opps! something is wrong.')
+            toast.error('Opps! something is wrong.')
         }
     }
 
@@ -70,9 +73,12 @@ function Signup() {
 							>
 								<Input
 									prefix={<UserOutlined className="site-form-item-icon" />}
-									type="password"
+									type="text"
 									placeholder="Name"
 									autoComplete="new-name"
+									onChange={onTextChange}
+									value={name}
+									id="name"
 								/>
 							</Form.Item>
 
@@ -85,7 +91,15 @@ function Signup() {
 									},
 								]}
 							>
-								<Input prefix={<MailOutlined className="site-form-item-icon" />} placeholder="Email" autoComplete="new-email" style={{ autocomplete:"off" }} />
+								<Input
+								 	prefix={<MailOutlined className="site-form-item-icon" />} 
+									placeholder="Email" 
+									autoComplete="new-email" 
+									style={{ autocomplete:"off" }} 
+									onChange={onTextChange}
+									value={email}
+									id="email"
+								/>
 							</Form.Item>
 
 							<Form.Item
@@ -102,13 +116,14 @@ function Signup() {
 									type="password"
 									placeholder="Password"
 									autoComplete="new-password"
+									onChange={onTextChange}
+									value={password}
+									id="password"
 								/>
 							</Form.Item>
-
-							
-
+						
 							<Form.Item>
-								<Button type="primary" htmlType="submit" className="login-form-button">
+								<Button type="primary" htmlType="submit" className="login-form-button" onClick={handleSubmit}>
 									Sign up
 								</Button>
 							</Form.Item>

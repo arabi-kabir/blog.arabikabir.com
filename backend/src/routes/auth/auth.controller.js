@@ -8,9 +8,11 @@ async function userSignup(req, res) {
     try {
         const { name, email, password } = req.body
 
+        console.log(req.body);
+
         // validate user input
         if(!name || !email || !password) {
-            res.status(400).send("All input is required");
+            return res.status(400).send("All input is required");
         }
 
         // check if user already exist
@@ -18,7 +20,7 @@ async function userSignup(req, res) {
         const oldUser = await User.findOne({ email });
 
         if (oldUser) {
-            return res.status(409).send("User Already Exist. Please Login");
+            return res.status(409).send("User Already Exist.");
         }
 
         //Encrypt user password
@@ -44,7 +46,8 @@ async function userSignup(req, res) {
         // return new user
         res.status(201).json(user);
     } catch (err) {
-        console.log(err);
+        console.log(err.errors);
+        return err.errors
     }
 }
 
@@ -84,12 +87,21 @@ async function userSignin(req, res) {
 
 async function validateToken(req, res) {
     const user = await getUserInfo(req)
-    console.log(user);
     res.status(200).json(user)
+}
+
+async function userProfile(req, res) {
+    // get user id from token
+    const user = await getUserInfo(req)
+
+    // get user data from token
+    const userData = await User.findById({ _id: user.user_id }).select('name email')
+    res.status(200).json(userData)
 }
 
 module.exports = {
     userSignup,
     userSignin,
-    validateToken
+    validateToken,
+    userProfile
 }

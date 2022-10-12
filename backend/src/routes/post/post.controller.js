@@ -43,7 +43,6 @@ async function updatePost(req, res) {
             res.status(400).send('post not found')
         } else {
             const data = req.body
-            console.log(data);
             post.post_title = data.blogData.title
             post.post_author = data.blogData.author
             post.post_body = data.blogData.content

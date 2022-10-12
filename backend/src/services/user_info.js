@@ -11,7 +11,6 @@ async function getUserInfo(req) {
 
     try {
         const user = jwt.verify(token, config.TOKEN_KEY)
-        console.log(user)
         return user
     } catch (err) {
         return "user not found"

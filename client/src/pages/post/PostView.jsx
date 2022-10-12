@@ -40,7 +40,8 @@ function PostView() {
         <Fragment>
             <Layout>
                 <Row>
-                    <Col xs={24} sm={24} md={24}>
+                    <Col xs={2} xl={5}></Col>
+                    <Col xs={20} xl={14}>
                         <div style={{ padding: '40px' }}>
                             <h4 style={{ textAlign: 'center' }}>{ post.post_title }</h4>
                             <h6>Author : { post.post_author }</h6>
@@ -49,6 +50,7 @@ function PostView() {
                             </div>
                         </div>
                     </Col>
+                    <Col xs={2} xl={5}></Col>
                 </Row>
                
             </Layout>
