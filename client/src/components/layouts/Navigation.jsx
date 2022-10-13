@@ -3,12 +3,14 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import AppUrl from '../../rest-client/AppUrl';
 import RestClient from '../../rest-client/RestClient';
+import Spinner from '../../components/utils/Spinner'
 
 function Navigation() {
     const token = localStorage.getItem("token");
     const navigate = useNavigate()
     const [current, setCurrent] = useState('mail');
     const [tokenStatus, setTokenStatus] = useState('')
+    const [loading, setLoading] = useState(true)
     let items = '';
 
     useEffect(() => {
@@ -18,6 +20,7 @@ function Navigation() {
     const getTokenStatus = async () => {
         const response = await RestClient.getRequest(AppUrl.validateToken)
         setTokenStatus(response.data)
+        setLoading(false)
     }
 
     const onClick = (e) => {
@@ -63,6 +66,10 @@ function Navigation() {
                 key: '/sign-up'
             }
         ]
+    }
+
+    if(loading) {
+        return <Spinner />
     }
     
     return (

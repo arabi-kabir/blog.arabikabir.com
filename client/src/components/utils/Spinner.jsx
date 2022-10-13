@@ -1,11 +1,18 @@
+import { Col, Row } from 'antd'
 import React from 'react'
 import spinner from '../../assets/spinner1.gif'
 
 function Spinner() {
     return (
-        <div style={{ textAlign: 'center'}}>
-            <img src={spinner} alt='Loading...' />
-        </div>
+        <Row>
+            <Col xs={2} xl={6}></Col>
+            <Col xs={20} xl={12}>
+                <div style={{ textAlign: 'center'}}>
+                    <img style={{ width: '100%' }} src={spinner} alt='Loading...' />
+                </div>
+            </Col>
+            <Col xs={2} xl={6}></Col>
+        </Row>
     )
 }
 
