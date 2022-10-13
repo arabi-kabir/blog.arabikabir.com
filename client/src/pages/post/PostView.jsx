@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useParams } from 'react-router-dom';
 import Layout from '../../components/layouts/Layout';
-import { Col, Row } from 'antd';
+import { Col, Divider, Row } from 'antd';
 import Sider from 'antd/lib/layout/Sider';
 import RestClient from '../../rest-client/RestClient';
 import AppUrl from '../../rest-client/AppUrl';
@@ -13,7 +13,8 @@ function PostView() {
     let { id } = useParams();
 
     useEffect(() => {
-        getPost('as')
+        getPost()
+        console.log(post);
     }, [])
 
     const getPost = async () => {
@@ -44,10 +45,12 @@ function PostView() {
                     <Col xs={20} xl={14}>
                         <div style={{ padding: '40px' }}>
                             <h4 style={{ textAlign: 'center' }}>{ post.post_title }</h4>
-                            <h6>Author : { post.post_author }</h6>
-                            <div className='ck-content'>
-                                <div dangerouslySetInnerHTML={{ __html: post.post_body }}></div>
+
+                            <Divider />
+                            <div style={{ float: 'right' }}>
+                                <h6>Author : { post.post_author }</h6>
                             </div>
+                            <div style={{ clear: 'both', marginTop: '60px' }} dangerouslySetInnerHTML={{ __html: post.post_body }}></div>
                         </div>
                     </Col>
                     <Col xs={2} xl={5}></Col>

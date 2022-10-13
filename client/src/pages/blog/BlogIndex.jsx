@@ -74,7 +74,8 @@ function BlogIndex() {
                             direction="vertical"
                             size="middle"
                             style={{
-                                marginTop: '20px'
+                                marginTop: '20px',
+                                width: '100%'
                             }}
                         >
                             {
