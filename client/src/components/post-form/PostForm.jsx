@@ -16,7 +16,6 @@ function PostForm(props) {
     const [loading, setLoading] = useState(true)
     const [blogData, setBlogdata] = useState({
         title: '',
-        author: '',
         content: '',
         short_description: ''
     })
@@ -34,10 +33,10 @@ function PostForm(props) {
 
     useEffect(() => {
         setLoading(true)
+        // if edit mode then load post
         if(props && props.post) {
             setBlogdata({
                 title: props.post.post_title,
-                author: props.post.post_author,
                 content: props.post.post_body,
                 short_description: props.post.short_description
             })
@@ -138,11 +137,6 @@ function PostForm(props) {
                                 <div className="form-group mb-3">
                                     <label className="mb-2">Title</label>
                                     <Input placeholder='Post Title' name='title' value={blogData.title} onChange={hanldeChangeData} />
-                                </div>
-
-                                <div className="form-group mb-3">
-                                    <label className="mb-2">Author</label>
-                                    <Input placeholder='Author Name' name='author' value={blogData.author} onChange={hanldeChangeData} />
                                 </div>
 
                                 <div className="form-group mb-3">

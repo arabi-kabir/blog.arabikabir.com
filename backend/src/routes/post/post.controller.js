@@ -11,7 +11,6 @@ async function insertPost(req, res) {
 
     const post = new Post();
     post.post_title =  data.blogData.title
-    post.post_author = data.blogData.author
     post.post_body = data.blogData.content
     post.short_description = data.blogData.short_description
     post.post_owner_id = user.user_id
@@ -26,7 +25,8 @@ async function insertPost(req, res) {
 
 async function getPost(req, res) {
     try {
-        post = await Post.findOne({ _id: req.params.id })
+        post = await Post.findOne({ _id: req.params.id }).populate('post_owner_id')
+
         return res.status(200).json({
             post_data: post
         })
@@ -44,7 +44,6 @@ async function updatePost(req, res) {
         } else {
             const data = req.body
             post.post_title = data.blogData.title
-            post.post_author = data.blogData.author
             post.post_body = data.blogData.content
             post.short_description = data.blogData.short_description
             await post.save()
@@ -81,6 +80,8 @@ async function getAllPost(req, res) {
             .limit(PAGE_SIZE)
             .skip(PAGE_SIZE * page)
             .sort({'createdAt': -1})
+            .populate('post_owner_id')
+            
 
         return res.status(200).json({
             post_data: post,
@@ -94,7 +95,9 @@ async function getAllPost(req, res) {
 async function getMyPost(req, res) {
     try {
         const user = await getUserInfo(req)
-        const posts = await Post.find({ post_owner_id: mongoose.Types.ObjectId(user.user_id) }).sort({'createdAt': -1})
+        const posts = await Post.find({ post_owner_id: mongoose.Types.ObjectId(user.user_id) })
+                                .populate('post_owner_id')
+                                .sort({'createdAt': -1})
 
         return res.status(200).json({
             my_posts: posts

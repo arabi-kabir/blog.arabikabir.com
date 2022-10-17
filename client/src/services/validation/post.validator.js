@@ -9,14 +9,6 @@ const post = new Schema({
             required: 'Please enter a valid Post title',
         }
     },
-    author : {
-        type: String,
-        required: true,
-
-        message: {
-            required: 'Please enter a valid Author name',
-        }
-    },
     short_description: {
         type: String,
         required: true,

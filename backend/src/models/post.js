@@ -6,10 +6,6 @@ const postSchema = new mongoose.Schema({
         trim: true,
         required: true
     },
-    post_author: {
-        type: String,
-        required: false
-    },
     post_body: {
         type: String,
         required: false

@@ -1,12 +1,11 @@
 import React, { Fragment } from 'react'
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import { useParams } from 'react-router-dom';
 import Layout from '../../components/layouts/Layout';
 import { Col, Divider, Row } from 'antd';
-import Sider from 'antd/lib/layout/Sider';
 import RestClient from '../../rest-client/RestClient';
 import AppUrl from '../../rest-client/AppUrl';
+import Spinner from '../../components/utils/Spinner';
 
 function PostView() {
     const [post, setPost] = useState(null)
@@ -14,7 +13,6 @@ function PostView() {
 
     useEffect(() => {
         getPost()
-        console.log(post);
     }, [])
 
     const getPost = async () => {
@@ -30,11 +28,7 @@ function PostView() {
     }
 
     if(!post) {
-        return (
-            <div>
-                <p>loading...</p>
-            </div>
-        )
+        return <Spinner />
     }
 
     return (
@@ -47,15 +41,16 @@ function PostView() {
                             <h4 style={{ textAlign: 'center' }}>{ post.post_title }</h4>
 
                             <Divider />
-                            <div style={{ float: 'right' }}>
-                                <h6>Author : { post.post_author }</h6>
+
+                            <div >
+                                <h6 style={{ marginBottom: 0 }}>Author : { post.post_owner_id.name }</h6>
+                                <small>Email : { post.post_owner_id.email }</small>
                             </div>
-                            <div style={{ clear: 'both', marginTop: '60px' }} dangerouslySetInnerHTML={{ __html: post.post_body }}></div>
+                            <div style={{ marginTop: '30px' }} dangerouslySetInnerHTML={{ __html: post.post_body }}></div>
                         </div>
                     </Col>
                     <Col xs={2} xl={5}></Col>
                 </Row>
-               
             </Layout>
         </Fragment>
    

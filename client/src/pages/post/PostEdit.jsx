@@ -1,6 +1,6 @@
 import React, { useEffect, useState} from 'react'
 import toast from 'react-hot-toast';
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import PostForm from '../../components/post-form/PostForm'
 import Spinner from '../../components/utils/Spinner';
 import AppUrl from '../../rest-client/AppUrl'
@@ -8,7 +8,6 @@ import RestClient from '../../rest-client/RestClient'
 
 function PostEdit() {
     let { id } = useParams()
-    const navigare = useNavigate()
     const [loading, setLoading] = useState(true)
     const [post, setPost] = useState({
         title: '',
@@ -28,16 +27,18 @@ function PostEdit() {
             RestClient.getRequest(url)
             .then(function (response) {
                 setPost(response.data.post_data)
+                setLoading(false)
             })
             .catch(function (error) {
                 console.log(error);
                 toast.error('Opps!! Something is burning')
+                setLoading(false)
             });
         } catch (error) {
             console.log(error);
             toast.error('Opps!! Something is burning')
         }
-        setLoading(false)
+        // setLoading(false)
     } 
 
     if(loading) {

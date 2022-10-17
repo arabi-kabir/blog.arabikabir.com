@@ -1,4 +1,4 @@
-import { Button, Col, List, Row, Space, Tooltip, Typography, Card, Avatar } from 'antd'
+import { Button, Col, List, Row, Space, Tooltip, Typography, Card, Avatar, Tag, Badge } from 'antd'
 import React, { Fragment, useState, useEffect } from 'react'
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom'
@@ -6,6 +6,7 @@ import Layout from '../../components/layouts/Layout'
 import RestClient from '../../rest-client/RestClient'
 import { Content } from 'antd/lib/layout/layout'
 import Spinner from '../../components/utils/Spinner'
+const { Text, Link } = Typography;
 
 function BlogIndex() {
     const navigate = useNavigate()
@@ -90,6 +91,14 @@ function BlogIndex() {
                                             description={post.short_description}
                                             onClick={() => navigate(`/post/${post._id}`)}
                                         />
+
+                                        {/* <Tag style={{ marginTop: '10px' }} color="default">{post.post_owner_id.email}</Tag> */}
+                                        {/* <Text style={{ marginTop: '10px' }} code>{post.post_owner_id.email}</Text> */}
+                                        {/* <Badge 
+                                            count={post.post_owner_id.email} 
+                                            style={{ backgroundColor: '#52c41a', marginTop: '10px' }}
+                                        /> */}
+                                        <p style={{ marginBottom: '0', marginTop: '10px' }}> <span style={{ fontWeight: 'bold' }}>Author</span> {post.post_owner_id.email}</p>
                                     </Card>
                                 ))
                             }
