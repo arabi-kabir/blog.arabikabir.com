@@ -19,6 +19,11 @@ const postSchema = new mongoose.Schema({
         required: true,
         ref: 'User'
     },
+    post_status: {
+        type: String,
+        required: true,
+        default: 'Published'
+    }
 }, {
     timestamps: true
 })

@@ -1,6 +1,5 @@
-import { AutoComplete } from 'antd';
-import { Footer } from 'antd/lib/layout/layout';
 import React from 'react';
+import Footer from './Footer';
 import Navigation from './Navigation';
 
 const Layout =({children}) =>{
@@ -11,11 +10,7 @@ const Layout =({children}) =>{
                 <main>
                     {children}
                 </main>
-                <Footer 
-                    style={{ textAlign: 'center', bottom: '0', width:'100%', backgroundColor: '#34495e', color: 'white',position:'fixed'}}
-                >
-                    blog.arabikabir.com ©{ new Date().getFullYear() } created with &hearts; by arabi
-                </Footer>
+                <Footer />
             </div>
         
         </>

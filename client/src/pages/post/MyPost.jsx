@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import Layout from '../../components/layouts/Layout'
 import RestClient from '../../rest-client/RestClient'
-import { Content } from 'antd/lib/layout/layout'
 import { useNavigate } from 'react-router-dom'
 import { DeleteOutlined } from '@ant-design/icons'
 import toast from 'react-hot-toast';
@@ -87,9 +86,9 @@ function MyPost() {
         <Fragment>
             <Layout>
                 <h5 style={{ marginTop: '30px', marginBottom: '10px', textAlign: 'center', fontWeight: 300 }}>My Posts</h5>
-                <Row>
+                <Row style={{ marginBottom: '60px' }}>
                     <Col xs={2} xl={6}></Col>
-                    <Col xs={20} xl={12}>
+                    <Col xs={20} xl={12} style={{ marginBottom: '200px' }}>
                         <Space  
                             direction="vertical"
                             size="middle"
@@ -105,7 +104,8 @@ function MyPost() {
                                         style={{ width: '100%', cursor: 'pointer', backgroundColor: '#f0f0f0' }}
                                         actions={[
                                             <Tooltip title="Edit Post"> <EditOutlined key="edit" onClick={() => navigate('/my-posts/edit/' + post._id) } /> </Tooltip>,
-                                            <Tooltip title="Delete Post"> <DeleteOutlined key="delete" onClick={() => deleteModal(post._id)} /> </Tooltip>
+                                            <Tooltip title="Delete Post"> <DeleteOutlined key="delete" onClick={() => deleteModal(post._id)} /> </Tooltip>,
+                                            <Tooltip title="Post Status"> <span style={{ color: post.post_status == 'Published' ? 'green' : 'grey' }}> {post.post_status} </span> </Tooltip>
                                         ]}
                                         key={post._id}
                                     >

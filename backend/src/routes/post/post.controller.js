@@ -1,4 +1,3 @@
-const { response } = require('express');
 var mongoose = require('mongoose');
 const Post = require('../../models/post');
 const { getUserInfo } = require('../../services/user_info');
@@ -14,6 +13,7 @@ async function insertPost(req, res) {
     post.post_body = data.blogData.content
     post.short_description = data.blogData.short_description
     post.post_owner_id = user.user_id
+    post.post_status = 'Published'
 
     try {
         await post.save()
@@ -107,8 +107,18 @@ async function getMyPost(req, res) {
     }
 }
 
-async function recentPosts(req, res) {
+async function changePostStatus(req, res) {
+    try {
+        let post = await Post.findOne({ _id: req.body.post_id })
+        post.post_status = req.body.new_post_status
+        post.save()
 
+        res.status(200).json({
+            'message' : 'post status changed'
+        })
+    } catch (error) {
+        res.status(400).send(error)
+    }
 }
 
 module.exports = {
@@ -117,5 +127,6 @@ module.exports = {
     getMyPost,
     getAllPost,
     updatePost,
-    deletePost
+    deletePost,
+    changePostStatus
 }

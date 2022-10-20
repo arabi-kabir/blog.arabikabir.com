@@ -5,7 +5,8 @@ const {
     getMyPost,
     getAllPost,
     updatePost,
-    deletePost
+    deletePost,
+    changePostStatus
 } = require('./post.controller')
 const auth = require('../../middleware/auth')
 
@@ -16,6 +17,7 @@ postRouter.post('/save-post-data', auth, insertPost)
 postRouter.get('/my-posts', auth, getMyPost)
 postRouter.put('/update-post/:id', auth, updatePost)
 postRouter.delete('/delete-post/:id', deletePost)
+postRouter.post('/change-post-status', changePostStatus)
 postRouter.get ('/:id', getPost)
 
 
