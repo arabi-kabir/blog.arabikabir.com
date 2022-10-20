@@ -1,5 +1,6 @@
 backend/node_modules
 client/node_modules
+client/build
 
 backend/images/*
 backend/uploads/*
