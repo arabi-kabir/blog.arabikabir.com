@@ -1,9 +1,10 @@
+backend/.env
+
 backend/node_modules
 client/node_modules
-client/build
 
 backend/images/*
 backend/uploads/*
-backend/.env
+
 
 **/.DS_Store
