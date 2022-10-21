@@ -203,7 +203,7 @@ function PostForm(props) {
                                         minHeight: '800px'
                                     }}
                                     tabIndex={1} 
-                                    // onBlur={newContent => setContent(newContent)}
+                                    onBlur={newContent => setContent(newContent)}
                                     onChange={textEditorNewContent}
                                 />
                             </div>
