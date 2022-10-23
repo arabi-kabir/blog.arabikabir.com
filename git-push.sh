@@ -8,5 +8,5 @@ git commit -m"${message}"
 # else
 #  git status
  echo "Pushing data to remote server!!!"
- git push -u origin master
+ git push
 # fi
