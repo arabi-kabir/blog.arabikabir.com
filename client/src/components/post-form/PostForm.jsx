@@ -199,9 +199,9 @@ function PostForm(props) {
                                 <JoditEditor
                                     ref={editor}
                                     value={contentJodit}
-                                    config={{
-                                        minHeight: '800px'
-                                    }}
+                                    // config={{
+                                    //     minHeight: '800px'
+                                    // }}
                                     tabIndex={1} 
                                     onBlur={newContent => setContent(newContent)}
                                     onChange={textEditorNewContent}
