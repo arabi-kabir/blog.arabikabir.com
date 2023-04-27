@@ -35,8 +35,14 @@ var whitelist = [
 const api = require('./src/routes/api')
 app.use('/', api)
 
+app.get('/app-test', (req, res) => {
+    res.send('app is working....')
+})
+
 app.use(cors({
     origin: '*'
 }));
+
+
 
 module.exports = app
