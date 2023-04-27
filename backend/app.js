@@ -26,9 +26,7 @@ var whitelist = [
 // };
 // app.use(cors(corsOptions));
 
-app.use(cors({
-    origin: '*'
-}));
+
 
 // app.options('*', cors())
 
@@ -36,5 +34,9 @@ app.use(cors({
 // routers
 const api = require('./src/routes/api')
 app.use('/', api)
+
+app.use(cors({
+    origin: '*'
+}));
 
 module.exports = app
