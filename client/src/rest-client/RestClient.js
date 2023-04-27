@@ -13,7 +13,8 @@ class RestClient {
             .get(url, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*',
+                    'mode': 'no-cors',
+                    'Access-Control-Allow-Origin': 'https://blog-backend.arabikabir.com',
                     'x-access-token': JSON.parse(token)
                 }
             })
@@ -35,7 +36,7 @@ class RestClient {
         let config = {
             headers: {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Origin': 'https://blog-backend.arabikabir.com',
                 'x-access-token': JSON.parse(token)
             }
         }
@@ -65,7 +66,7 @@ class RestClient {
         let config = {
             headers: {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Origin': 'https://blog-backend.arabikabir.com',
                 'x-access-token': token
             }
         }
@@ -91,7 +92,7 @@ class RestClient {
         let config = {
             headers: {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Origin': 'https://blog-backend.arabikabir.com',
                 'x-access-token': JSON.parse(token)
             }
         }
