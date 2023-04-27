@@ -28,7 +28,7 @@ var whitelist = [
 
 
 
-// app.options('*', cors())
+app.options('*', cors())
 
 
 // routers
