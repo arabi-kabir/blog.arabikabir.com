@@ -28,20 +28,23 @@ var whitelist = [
 
 
 
-app.options('*', cors())
+// app.options('*', cors())
+
+app.use(cors({
+    origin: '*'
+}));
 
 
 // routers
 const api = require('./src/routes/api')
+
 app.use('/', api)
 
 app.get('/app-test', (req, res) => {
     res.send('app is working....')
 })
 
-app.use(cors({
-    origin: '*'
-}));
+
 
 
 
