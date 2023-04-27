@@ -13,7 +13,7 @@ class RestClient {
             .get(url, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': cors.origin,
+                    'Access-Control-Allow-Origin': '*',
                     'x-access-token': JSON.parse(token)
                 }
             })
@@ -35,7 +35,7 @@ class RestClient {
         let config = {
             headers: {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': cors.origin,
+                'Access-Control-Allow-Origin': '*',
                 'x-access-token': JSON.parse(token)
             }
         }
@@ -65,7 +65,7 @@ class RestClient {
         let config = {
             headers: {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': cors.origin,
+                'Access-Control-Allow-Origin': '*',
                 'x-access-token': token
             }
         }
@@ -91,7 +91,7 @@ class RestClient {
         let config = {
             headers: {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': cors.origin,
+                'Access-Control-Allow-Origin': '*',
                 'x-access-token': JSON.parse(token)
             }
         }
