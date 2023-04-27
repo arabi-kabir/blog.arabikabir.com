@@ -26,7 +26,11 @@ var whitelist = [
 // };
 // app.use(cors(corsOptions));
 
-app.options('*', cors())
+app.use(cors({
+    origin: '*'
+}));
+
+// app.options('*', cors())
 
 
 // routers
