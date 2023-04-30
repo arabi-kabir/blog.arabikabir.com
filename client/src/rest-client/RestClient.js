@@ -15,7 +15,8 @@ class RestClient {
                     'Content-Type': 'application/json',
                     'mode': 'no-cors',
                     'Access-Control-Allow-Origin': 'https://blog-backend.arabikabir.com',
-                    'x-access-token': JSON.parse(token)
+                    'x-access-token': JSON.parse(token),
+                    'just-test': 'my-data'
                 }
             })
             .then(response => {
